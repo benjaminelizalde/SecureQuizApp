@@ -29,16 +29,33 @@ def renderPage1():
 @app.route('/page2',methods=['GET','POST'])
 def renderPage2():
     #TODO: set the first and last name in the session
-    session["firstName"] = request.form["firstName"] #adds the first name to the cookie
-    session["lastName"] = request.form["lastName"] #adds the last name to the cookie
+    session["answer1"] = request.form["answer1"] 
+    if session["answer1"] == "french" or  session["answer1"] == "French":
+       session["answerscorrect"]= 1
+    else:
+       session["answerscorrect"]= 0
+    print(session["answerscorrect"])
     return render_template('page2.html')
 
 @app.route('/page3',methods=['GET','POST'])
 def renderPage3():
     #TODO: set the favorite color in the session
-    session["favoriteColor"] = request.form["favoriteColor"]
-    
+    session["answer2"] = request.form["answer2"] 
+    if session["answer2"] == 6:
+       session["answerscorrect"]= session["answerscorrect"] + 1
+    else:
+       session["answerscorrect"]= session["answerscorrect"]
+    print(session["answerscorrect"])
     return render_template('page3.html')
     
+@app.route('/page4',methods=['GET','POST'])
+def renderPage4():
+    session["answer3"] = request.form["answer3"] 
+    if session["answer3"] == "spiders" or session["answer3"] == "Spiders" :
+       session["answerscorrect"]= session["answerscorrect"] + 1
+    else:
+       session["answerscorrect"]= session["answerscorrect"]
+    print(session["answerscorrect"])
+    return render_template('page4.html')
 if __name__=="__main__":
-    app.run(debug=False)
+    app.run(debug=True)
