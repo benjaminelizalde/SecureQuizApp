@@ -32,9 +32,10 @@ def renderPage1():
 def renderPage2():
     
     if "answer1" in session:
-        print(session["answerscorrect"])
+        session["cheating"]=1
     else:
         session["answer1"] = request.form["answer1"] 
+        
         if session["answer1"] == "french" or  session["answer1"] == "French":
             session["answerscorrect"]= 1
         else:
@@ -45,9 +46,11 @@ def renderPage2():
 @app.route('/page3',methods=['GET','POST'])
 def renderPage3():
     if "answer2" in session:
-        print(session["answerscorrect"])
+        session["cheating"]=1
     else:
         session["answer2"] = request.form["answer2"] 
+        
+        
         if session["answer2"] == "6":
             session["answerscorrect"]= session["answerscorrect"] + 1
         else:
@@ -58,15 +61,19 @@ def renderPage3():
 @app.route('/page4',methods=['GET','POST'])
 def renderPage4():
     if "answer3" in session:
-        print(session["answerscorrect"])
+        session[cheating]=1
     else:
         session["answer3"] = request.form["answer3"] 
+        
         if session["answer3"] == "spiders" or session["answer3"] == "Spiders" :
             session["answerscorrect"]= session["answerscorrect"] + 1
         else:
             session["answerscorrect"]= session["answerscorrect"]
     print(session["answerscorrect"])
     
-    return render_template('page4.html')
+    if "cheating" in session:
+        return render_template('error.html')
+    else:
+        return render_template('page4.html')
 if __name__=="__main__":
     app.run(debug=True)
